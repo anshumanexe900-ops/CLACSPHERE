@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="CalcSphere — a premium all-in-one calculator suite by Anshuman Chudal. Fast, private and mobile-friendly.">
+<title>CalcSphere — Premium All-in-One Calculator</title>
+<style>
+:root{
+  --bg:#070a13;--panel:rgba(18,24,42,.72);--panel2:rgba(255,255,255,.055);
+  --text:#f5f7ff;--muted:#aab2c8;--line:rgba(255,255,255,.1);
+  --accent:#7c5cff;--accent2:#19d3ff;--good:#32e6a1;--danger:#ff6b8a;
+  --shadow:0 24px 80px rgba(0,0,0,.38);--radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);
+background:
+radial-gradient(circle at 15% 5%,rgba(124,92,255,.28),transparent 28%),
+radial-gradient(circle at 85% 10%,rgba(25,211,255,.18),transparent 25%),
+linear-gradient(135deg,#050711,#0b1020 55%,#080b15);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,black,transparent 75%)}
+a{color:inherit;text-decoration:none}
+.container{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(5,7,17,.72);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:11px;align-items:center;font-weight:900;letter-spacing:-.5px}
+.logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px rgba(124,92,255,.3);font-size:21px}
+.navlinks{display:flex;gap:22px;color:var(--muted);font-size:14px}
+.navlinks a:hover{color:#fff}
+.btn{border:1px solid var(--line);background:linear-gradient(135deg,rgba(124,92,255,.95),rgba(25,211,255,.72));color:#fff;border-radius:14px;padding:11px 16px;font-weight:800;cursor:pointer;box-shadow:0 10px 28px rgba(124,92,255,.22)}
+.btn.secondary{background:var(--panel2);box-shadow:none}
+.hero{padding:76px 0 38px;display:grid;grid-template-columns:1.35fr .65fr;gap:34px;align-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(124,92,255,.35);background:rgba(124,92,255,.1);color:#cfc7ff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}
+h1{font-size:clamp(42px,7vw,76px);line-height:.98;margin:18px 0;background:linear-gradient(100deg,#fff,#b9b9ff 45%,#71e8ff);-webkit-background-clip:text;color:transparent;letter-spacing:-3px}
+.hero p{color:var(--muted);font-size:18px;line-height:1.65;max-width:680px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.float-card{padding:25px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));border-radius:30px;box-shadow:var(--shadow);transform:perspective(800px) rotateY(-7deg) rotateX(3deg)}
+.orb{height:210px;border-radius:26px;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#bcaeff 0 5%,transparent 6%),radial-gradient(circle at 65% 60%,#6de8ff 0 4%,transparent 5%),linear-gradient(135deg,#22165b,#092f43);box-shadow:inset 0 0 70px rgba(124,92,255,.3),0 20px 60px rgba(0,0,0,.3)}
+.orb span{font-size:76px;font-weight:900;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35))}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 35px}
+.stat{padding:18px;border:1px solid var(--line);background:var(--panel);border-radius:18px}
+.stat b{display:block;font-size:24px}.stat span{font-size:12px;color:var(--muted)}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:40px 0 18px}
+.section-title h2{margin:0;font-size:30px}.section-title p{margin:0;color:var(--muted)}
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border-radius:var(--radius);padding:20px;box-shadow:0 15px 45px rgba(0,0,0,.2);transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.45)}
+.card h3{margin:0 0 7px}.card small{color:var(--muted);line-height:1.5}
+.icon{font-size:26px;margin-bottom:12px}
+input,select{width:100%;padding:13px 14px;margin:7px 0;border:1px solid var(--line);border-radius:13px;background:#0b1020;color:#fff;outline:none}
+input:focus,select:focus{border-color:var(--accent)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.result{margin-top:10px;padding:13px;border-radius:13px;background:rgba(50,230,161,.08);border:1px solid rgba(50,230,161,.2);color:#baffdf;font-weight:800;min-height:44px}
+.full{grid-column:1/-1}
+.search{width:100%;max-width:360px;margin:0}
+.premium{margin:55px 0;padding:34px;border-radius:30px;border:1px solid rgba(124,92,255,.35);background:linear-gradient(120deg,rgba(124,92,255,.14),rgba(25,211,255,.07));box-shadow:var(--shadow);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.premium h2{margin:0 0 8px}.premium p{color:var(--muted);margin:0;line-height:1.6}
+footer{margin-top:60px;border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.toast{position:fixed;right:18px;bottom:18px;background:#11182b;border:1px solid var(--line);padding:13px 16px;border-radius:14px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.25s;z-index:50}.toast.show{opacity:1;transform:none}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.tools{grid-template-columns:1fr 1fr}.float-card{transform:none}.premium{grid-template-columns:1fr}}
+@media(max-width:560px){.navlinks{display:none}.hero{padding-top:48px}.tools{grid-template-columns:1fr}.stats{grid-template-columns:1fr}h1{letter-spacing:-2px}.section-title{align-items:start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header><div class="container nav">
+  <a class="brand" href="#"><span class="logo">∑</span><span>CalcSphere</span></a>
+  <nav class="navlinks"><a href="#calculators">Calculators</a><a href="#premium">Premium</a><a href="#about">About</a></nav>
+  <button class="btn secondary" onclick="copySite()">Share</button>
+</div></header>
+
+<main class="container">
+<section class="hero">
+<div>
+  <span class="badge">✦ PREMIUM CALCULATOR SUITE • 100% BROWSER BASED</span>
+  <h1>Calculate anything.<br>Beautifully.</h1>
+  <p>A modern all-in-one calculator platform for students, professionals, shoppers and everyday life — fast, responsive and designed for mobile.</p>
+  <div class="hero-actions"><a class="btn" href="#calculators">Explore Calculators →</a><button class="btn secondary" onclick="window.print()">Print / Save PDF</button></div>
+</div>
+<div class="float-card"><div class="orb"><span>123</span></div><div style="display:flex;justify-content:space-between;margin-top:15px"><span>Smart tools</span><b>⚡ Instant</b></div></div>
+</section>
+
+<div class="stats"><div class="stat"><b>20+</b><span>Built-in tools</span></div><div class="stat"><b>0</b><span>Sign-ups required</span></div><div class="stat"><b>100%</b><span>Mobile responsive</span></div></div>
+
+<div class="section-title" id="calculators"><div><h2>Calculator Studio</h2><p>Everything you need in one place.</p></div><input class="search" id="search" placeholder="Search calculators..." oninput="filterCards()"></div>
+<section class="tools">
+
+<article class="card calc"><div class="icon">%</div><h3>Percentage</h3><small>Find a percentage of a number.</small><input id="pctA" type="number" placeholder="Percentage"><input id="pctB" type="number" placeholder="Number"><button class="btn" onclick="percentage()">Calculate</button><div class="result" id="pctR">—</div></article>
+
+<article class="card calc"><div class="icon">🏷️</div><h3>Discount</h3><small>Calculate sale price and savings.</small><input id="price" type="number" placeholder="Original price"><input id="disc" type="number" placeholder="Discount %"><button class="btn" onclick="discount()">Calculate</button><div class="result" id="discR">—</div></article>
+
+<article class="card calc"><div class="icon">💰</div><h3>Tip</h3><small>Split a bill with tip included.</small><input id="bill" type="number" placeholder="Bill amount"><div class="row"><input id="tip" type="number" placeholder="Tip %"><input id="people" type="number" placeholder="People" value="1"></div><button class="btn" onclick="tipCalc()">Calculate</button><div class="result" id="tipR">—</div></article>
+
+<article class="card calc"><div class="icon">🏦</div><h3>Loan / EMI</h3><small>Estimate monthly payment.</small><input id="loan" type="number" placeholder="Loan amount"><input id="rate" type="number" placeholder="Annual interest %"><input id="years" type="number" placeholder="Years"><button class="btn" onclick="emi()">Calculate EMI</button><div class="result" id="emiR">—</div></article>
+
+<article class="card calc"><div class="icon">⚖️</div><h3>BMI</h3><small>Body mass index from height and weight.</small><input id="weight" type="number" placeholder="Weight (kg)"><input id="height" type="number" placeholder="Height (cm)"><button class="btn" onclick="bmi()">Calculate</button><div class="result" id="bmiR">—</div></article>
+
+<article class="card calc"><div class="icon">🎂</div><h3>Age</h3><small>Calculate age from birth date.</small><input id="dob" type="date"><button class="btn" onclick="age()">Calculate age</button><div class="result" id="ageR">—</div></article>
+
+<article class="card calc"><div class="icon">📐</div><h3>Unit Converter</h3><small>Convert common everyday units.</small><div class="row"><input id="unitVal" type="number" placeholder="Value"><select id="unitType"><option value="km">KM → Miles</option><option value="mi">Miles → KM</option><option value="kg">KG → LB</option><option value="lb">LB → KG</option><option value="cm">CM → Inches</option><option value="in">Inches → CM</option><option value="c">°C → °F</option><option value="f">°F → °C</option></select></div><button class="btn" onclick="convert()">Convert</button><div class="result" id="unitR">—</div></article>
+
+<article class="card calc"><div class="icon">⏱️</div><h3>Time Converter</h3><small>Convert hours and minutes.</small><input id="timeVal" type="number" placeholder="Value"><select id="timeType"><option value="hm">Hours → Minutes</option><option value="mh">Minutes → Hours</option></select><button class="btn" onclick="timeConvert()">Convert</button><div class="result" id="timeR">—</div></article>
+
+<article class="card calc"><div class="icon">📈</div><h3>Profit & Margin</h3><small>Find profit and profit margin.</small><input id="cost" type="number" placeholder="Cost price"><input id="sell" type="number" placeholder="Selling price"><button class="btn" onclick="profit()">Calculate</button><div class="result" id="profitR">—</div></article>
+
+<article class="card calc"><div class="icon">📊</div><h3>Average</h3><small>Average multiple numbers instantly.</small><input id="nums" placeholder="e.g. 10, 20, 30, 40"><button class="btn" onclick="average()">Calculate</button><div class="result" id="avgR">—</div></article>
+
+<article class="card calc"><div class="icon">🔢</div><h3>Ratio</h3><small>Simplify a ratio.</small><div class="row"><input id="ra" type="number" placeholder="A"><input id="rb" type="number" placeholder="B"></div><button class="btn" onclick="ratio()">Simplify</button><div class="result" id="ratioR">—</div></article>
+
+<article class="card calc"><div class="icon">💵</div><h3>Currency Quick Convert</h3><small>Manual-rate converter for any currency pair.</small><div class="row"><input id="money" type="number" placeholder="Amount"><input id="fx" type="number" placeholder="Rate"></div><button class="btn" onclick="currency()">Convert</button><div class="result" id="fxR">—</div></article>
+
+<article class="card calc full"><div class="icon">🧮</div><h3>Quick Math</h3><small>Type a simple expression using numbers and + − × ÷. Example: 120*3+50.</small><input id="math" placeholder="120 * 3 + 50"><button class="btn" onclick="quickMath()">Calculate</button><div class="result" id="mathR">—</div></article>
+</section>
+
+<section class="premium" id="premium"><div><h2>✦ CalcSphere Premium</h2><p>Built for future upgrades: saved calculations, custom themes, advanced finance tools, printable reports, more calculators and an ad-free experience. This demo keeps everything free and browser-based.</p></div><button class="btn" onclick="toast('Premium features can be connected when you add accounts/payments.')">Coming Soon</button></section>
+
+<section id="about" class="card" style="margin-top:25px"><h2>About CalcSphere</h2><p style="color:var(--muted);line-height:1.7">CalcSphere is a premium-style calculator project created to make everyday calculations fast and accessible. Founder & CEO: <strong style="color:#fff">Anshuman Chudal</strong>.</p></section>
+
+<footer><span>© <span id="year"></span> CalcSphere</span><span>Founder & CEO: <strong>Anshuman Chudal</strong></span><span>Fast • Private • Mobile-first</span></footer>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const n=id=>parseFloat(document.getElementById(id).value);
+const out=(id,v)=>document.getElementById(id).textContent=v;
+const moneyFmt=v=>Number.isFinite(v)?v.toLocaleString(undefined,{maximumFractionDigits:2}):"—";
+function percentage(){let a=n("pctA"),b=n("pctB");out("pctR",Number.isFinite(a)&&Number.isFinite(b)?moneyFmt(a*b/100):"Enter both values");}
+function discount(){let p=n("price"),d=n("disc"); if(!Number.isFinite(p)||!Number.isFinite(d))return out("discR","Enter both values"); let s=p*(1-d/100);out("discR",`Save ${moneyFmt(p-s)} • Final ${moneyFmt(s)}`);}
+function tipCalc(){let b=n("bill"),t=n("tip"),p=n("people")||1;if(!Number.isFinite(b)||!Number.isFinite(t))return out("tipR","Enter bill and tip");let total=b*(1+t/100);out("tipR",`Total ${moneyFmt(total)} • ${moneyFmt(total/p)} each`);}
+function emi(){let P=n("loan"),r=n("rate")/1200,months=n("years")*12;if(!Number.isFinite(P)||!Number.isFinite(r)||!Number.isFinite(months)||months<=0)return out("emiR","Enter all values");let m=r?P*r*Math.pow(1+r,months)/(Math.pow(1+r,months)-1):P/months;out("emiR",`Monthly EMI: ${moneyFmt(m)}`);}
+function bmi(){let w=n("weight"),h=n("height")/100;if(!w||!h)return out("bmiR","Enter weight and height");let x=w/(h*h),cat=x<18.5?"Underweight":x<25?"Normal range":x<30?"Overweight":"Obesity";out("bmiR",`BMI ${x.toFixed(1)} • ${cat}`);}
+function age(){let d=new Date(document.getElementById("dob").value),now=new Date();if(isNaN(d))return out("ageR","Choose your birth date");let a=now.getFullYear()-d.getFullYear();let m=now.getMonth()-d.getMonth();if(m<0||(m===0&&now.getDate()<d.getDate()))a--;out("ageR",`${a} years old`);}
+function convert(){let v=n("unitVal"),t=document.getElementById("unitType").value;if(!Number.isFinite(v))return out("unitR","Enter a value");let r={km:v*.621371,mi:v*1.609344,kg:v*2.20462262,lb:v*.45359237,cm:v*.393700787,in:v*2.54,c:v*9/5+32,f:(v-32)*5/9}[t];out("unitR",moneyFmt(r));}
+function timeConvert(){let v=n("timeVal");if(!Number.isFinite(v))return out("timeR","Enter a value");out("timeR",document.getElementById("timeType").value==="hm"?`${moneyFmt(v*60)} minutes`:`${moneyFmt(v/60)} hours`);}
+function profit(){let c=n("cost"),s=n("sell");if(!c||!Number.isFinite(s))return out("profitR","Enter both values");let p=s-c;out("profitR",`${p>=0?"Profit":"Loss"}: ${moneyFmt(Math.abs(p))} • Margin ${(p/s*100).toFixed(2)}%`);}
+function average(){let a=document.getElementById("nums").value.split(",").map(Number).filter(Number.isFinite);out("avgR",a.length?`Average: ${moneyFmt(a.reduce((x,y)=>x+y,0)/a.length)}`:"Use comma-separated numbers");}
+function gcd(a,b){while(b){[a,b]=[b,a%b]}return Math.abs(a)}
+function ratio(){let a=n("ra"),b=n("rb");if(!a||!b)return out("ratioR","Enter both values");let g=gcd(a,b);out("ratioR",`${a/g} : ${b/g}`);}
+function currency(){let a=n("money"),r=n("fx");if(!Number.isFinite(a)||!Number.isFinite(r))return out("fxR","Enter amount and rate");out("fxR",moneyFmt(a*r));}
+function quickMath(){let s=document.getElementById("math").value.replace(/×/g,"*").replace(/÷/g,"/").replace(/[^0-9+\\-*/().% ]/g,"");try{let v=Function('"use strict";return ('+s+')')();out("mathR",Number.isFinite(v)?moneyFmt(v):"Invalid expression")}catch(e){out("mathR","Invalid expression")}}
+function filterCards(){let q=document.getElementById("search").value.toLowerCase();document.querySelectorAll(".calc").forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?"block":"none")}
+function toast(msg){let t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)}
+function copySite(){navigator.clipboard?.writeText(location.href).then(()=>toast("Website link copied!")).catch(()=>toast("Copy the URL from your browser."))}
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
